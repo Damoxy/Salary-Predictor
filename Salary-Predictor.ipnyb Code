@@ -1,0 +1,66 @@
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.model_selection import train_test_split
+
+
+#Importing the Data Set submitted by the HR
+Salary_Data=pd.read_csv("Salary_Data.csv")
+
+#X= Years of Experiece is an Independent Factor
+#y= Salary is a Dependent Factor 
+#reason why we had to you use Linear Regression(y=mx+c) to model this 
+#Training My data Set
+
+X = Salary_Data.iloc[:,:-1].values
+y = Salary_Data.iloc[:,1].values
+X = X.reshape(-1,1)
+y = y.reshape(-1,1)
+
+
+
+
+X_train,X_test, y_train, y_test = train_test_split(X, y,test_size=1/3,random_state=0)
+
+#Fitting The Model using the Linear Regresion Method 
+
+
+HR_regression=LinearRegression()
+HR_regression.fit(X_train,y_train)
+
+#These lines of codes predict  the Test set results
+y_predict=HR_regression.predict(X_test)
+X_predict=HR_regression.predict(y_test)
+y_pred =HR_regression.predict(X_test)
+x_pred=HR_regression.predict(y_test)
+
+#Interactive Lines for the HR Console
+print("XYZ Technolgies HR_EMPLOYMENT PROCESS")
+b=input("Name of Applicant ")
+print("-----------------------------------")
+c=float(input(" Years of Experience of Applicant "))
+d=float(input("Applicant's Last Salary "))
+
+
+#for c  in range (,4000):
+   # print ("He is not lying")
+   # break;
+f=float(HR_regression.predict(c)) #This the Predicted Salary to be earned
+
+if d > f:
+    print("He looks more like he is lying")
+else:
+        print("He looks truthful with his Previous Salary")
+        
+print("His expected Salary should be around ",round(f),"Dollars")
+
+g=HR_regression.predict(X_train)
+plt.scatter(X_train,y_train, color='green',)
+plt.plot(X_train,g, color='red')
+plt.title('Salary vs Experience ')
+plt.xlabel('years of experience')
+plt.ylabel('Salary'
+plt.show()
